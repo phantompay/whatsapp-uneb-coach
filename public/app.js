@@ -108,6 +108,7 @@ function handleKey(e) {
     if (e.key === "Enter") sendMessage();
 }
 
-// Initial Run
-renderMainMenu();
-  
+// Safely initialize the menu after the page finishes loading
+document.addEventListener("DOMContentLoaded", () => {
+    renderMainMenu();
+});

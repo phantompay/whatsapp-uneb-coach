@@ -55,6 +55,10 @@ function renderMainMenu() {
 function selectSubject(sub) {
     history.push(() => renderMainMenu());
     selectedSubject = sub;
+    
+    // Reset view visibility
+    chatContainer.style.display = "none";
+    grid.style.display = "grid";
     backBtn.style.display = "block";
     breadcrumb.innerText = `${sub} › Select Paper`;
 
@@ -71,6 +75,11 @@ function selectSubject(sub) {
 function selectPaper(paper) {
     history.push(() => selectSubject(selectedSubject));
     selectedPaper = paper;
+    
+    // Reset view visibility (Fixes the stuck screen bug when stepping back from chat)
+    chatContainer.style.display = "none";
+    grid.style.display = "grid";
+    backBtn.style.display = "block";
     breadcrumb.innerText = `${selectedSubject} › ${paper}`;
 
     const topics = curriculum[selectedSubject].papers[paper];

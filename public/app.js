@@ -12,7 +12,16 @@ const curriculum = {
         "class": "physics",
         "papers": {
             "Paper 1": ["Mechanics & Properties of Matter", "Heat & Thermodynamics", "Modern & Nuclear Physics"],
-            "Paper 2": ["Optics & Light", "Waves", "Electricity & Electromagnetism"]
+            "Paper 2": ["Electricity & Electromagnetism", "Atomic & Modern Physics"]
+        }
+    },
+    "LIGHT & OPTICS": {
+        "icon": "💡",
+        "class": "optics",
+        "papers": {
+            "Reflection & Refraction": ["Reflection at Plane & Curved Surfaces", "Refraction at Plane Surfaces", "Prisms & Dispersion"],
+            "Lenses & Optical Instruments": ["Thin Lenses & Defects", "Microscopes & Telescopes", "The Human Eye"],
+            "Wave Optics": ["Interference & Young's Slits", "Diffraction & Gratings", "Polarization of Light"]
         }
     },
     "CHEMISTRY": {
@@ -33,6 +42,20 @@ const grid = document.getElementById("menu-grid");
 const backBtn = document.getElementById("back-btn");
 const breadcrumb = document.getElementById("breadcrumb");
 const chatContainer = document.getElementById("chat-container");
+
+function renderLaTeX(elementId) {
+    if (window.renderMathInElement && document.getElementById(elementId)) {
+        renderMathInElement(document.getElementById(elementId), {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\[", right: "\\]", display: true}
+            ],
+            throwOnError: false
+        });
+    }
+}
 
 function renderMainMenu() {
     history = [];
@@ -56,7 +79,6 @@ function selectSubject(sub) {
     history.push(() => renderMainMenu());
     selectedSubject = sub;
     
-    // Reset view visibility
     chatContainer.style.display = "none";
     grid.style.display = "grid";
     backBtn.style.display = "block";
@@ -76,7 +98,6 @@ function selectPaper(paper) {
     history.push(() => selectSubject(selectedSubject));
     selectedPaper = paper;
     
-    // Reset view visibility (Fixes the stuck screen bug when stepping back from chat)
     chatContainer.style.display = "none";
     grid.style.display = "grid";
     backBtn.style.display = "block";
@@ -100,12 +121,14 @@ function startChat(topic) {
     breadcrumb.innerText = `${selectedSubject} › ${selectedTopic}`;
 
     const chatBox = document.getElementById("chat-box");
+    const welcomeId = "welcome-msg";
     chatBox.innerHTML = `
-        <div class="msg-row bot">
-            <div class="avatar">${curriculum[selectedSubject].icon}</div>
+        <div class="msg-row bot" id="${welcomeId}">
+            <div class="avatar">${curriculum[selectedSubject]?.icon || '🤖'}</div>
             <div class="msg-bubble">Hello! I am your UACE tutor for <b>${selectedTopic}</b>. Ask me any question or past-paper problem.</div>
         </div>
     `;
+    renderLaTeX(welcomeId);
 }
 
 function goBack() {
@@ -125,10 +148,10 @@ async function sendMessage() {
     if (!text) return;
 
     const chatBox = document.getElementById("chat-box");
+    const userMsgId = "user-" + Date.now();
     
-    // User Message
     chatBox.innerHTML += `
-        <div class="msg-row user">
+        <div class="msg-row user" id="${userMsgId}">
             <div class="avatar">You</div>
             <div class="msg-bubble">${text}</div>
         </div>
@@ -136,11 +159,10 @@ async function sendMessage() {
     input.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    // Typing Indicator
     const typingId = "typing-" + Date.now();
     chatBox.innerHTML += `
         <div class="msg-row bot" id="${typingId}">
-            <div class="avatar">${curriculum[selectedSubject].icon}</div>
+            <div class="avatar">${curriculum[selectedSubject]?.icon || '🤖'}</div>
             <div class="msg-bubble typing">
                 <span></span><span></span><span></span>
             </div>
@@ -160,14 +182,17 @@ async function sendMessage() {
         });
         const data = await res.json();
         
-        // Remove typing indicator & show response
         document.getElementById(typingId)?.remove();
+        
+        const botMsgId = "bot-" + Date.now();
         chatBox.innerHTML += `
-            <div class="msg-row bot">
-                <div class="avatar">${curriculum[selectedSubject].icon}</div>
+            <div class="msg-row bot" id="${botMsgId}">
+                <div class="avatar">${curriculum[selectedSubject]?.icon || '🤖'}</div>
                 <div class="msg-bubble">${data.reply}</div>
             </div>
         `;
+        
+        renderLaTeX(botMsgId);
         chatBox.scrollTop = chatBox.scrollHeight;
     } catch (err) {
         document.getElementById(typingId)?.remove();
@@ -187,3 +212,4 @@ function handleKey(e) {
 document.addEventListener("DOMContentLoaded", () => {
     renderMainMenu();
 });
+            

@@ -11,6 +11,9 @@
     
     --phy-color: #10b981;
     --phy-glow: rgba(16, 185, 129, 0.25);
+
+    --optics-color: #f59e0b;
+    --optics-glow: rgba(245, 158, 11, 0.25);
     
     --chem-color: #a855f7;
     --chem-glow: rgba(168, 85, 247, 0.25);
@@ -35,7 +38,7 @@ body {
 /* Header Bar */
 header {
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -90,7 +93,7 @@ h1 {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 14px;
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
 }
 
 .card {
@@ -129,28 +132,26 @@ h1 {
 }
 
 /* Subject Specific Styling */
-.card.math {
-    border-bottom: 3px solid var(--math-color);
-}
+.card.math { border-bottom: 3px solid var(--math-color); }
 .card.math .icon { color: var(--math-color); }
 .card.math:hover { box-shadow: 0 8px 25px var(--math-glow); }
 
-.card.physics {
-    border-bottom: 3px solid var(--phy-color);
-}
+.card.physics { border-bottom: 3px solid var(--phy-color); }
 .card.physics .icon { color: var(--phy-color); }
 .card.physics:hover { box-shadow: 0 8px 25px var(--phy-glow); }
 
-.card.chemistry {
-    border-bottom: 3px solid var(--chem-color);
-}
+.card.optics { border-bottom: 3px solid var(--optics-color); }
+.card.optics .icon { color: var(--optics-color); }
+.card.optics:hover { box-shadow: 0 8px 25px var(--optics-glow); }
+
+.card.chemistry { border-bottom: 3px solid var(--chem-color); }
 .card.chemistry .icon { color: var(--chem-color); }
 .card.chemistry:hover { box-shadow: 0 8px 25px var(--chem-glow); }
 
 .btn-back {
     align-self: flex-start;
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     background: transparent;
     border: none;
     color: var(--text-muted);
@@ -162,13 +163,13 @@ h1 {
     padding: 0 4px;
 }
 
-/* Chat Drawer */
+/* Chat Drawer - Expanded Width */
 #chat-container {
     display: none;
     flex-direction: column;
     width: 100%;
-    max-width: 500px;
-    height: 68vh;
+    max-width: 800px;
+    height: 75vh;
     background: var(--card-bg);
     backdrop-filter: blur(16px);
     border-radius: 20px;
@@ -191,7 +192,8 @@ h1 {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    max-width: 85%;
+    max-width: 95%;
+    width: 100%;
 }
 
 .msg-row.user {
@@ -223,9 +225,9 @@ h1 {
 .msg-bubble {
     padding: 12px 16px;
     border-radius: 16px;
-    font-size: 0.92rem;
-    line-height: 1.45;
-    white-space: pre-wrap;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    word-break: break-word;
 }
 
 .msg-row.user .msg-bubble {
@@ -294,5 +296,5 @@ button.send-btn {
 
 button.send-btn:hover {
     opacity: 0.9;
-    }
-        
+        }
+    

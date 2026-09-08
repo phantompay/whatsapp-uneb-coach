@@ -5,7 +5,6 @@
     --text: #f8fafc;
     --text-muted: #94a3b8;
     
-    /* Subject Branding Colors */
     --math-color: #3b82f6;
     --math-glow: rgba(59, 130, 246, 0.25);
     
@@ -27,7 +26,7 @@ body {
     background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg-color) 70%);
     color: var(--text);
     margin: 0;
-    padding: 16px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,7 +34,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Header Bar */
 header {
     width: 100%;
     max-width: 800px;
@@ -47,7 +45,7 @@ header {
     backdrop-filter: blur(12px);
     border: 1px solid var(--card-border);
     border-radius: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     box-sizing: border-box;
 }
 
@@ -79,15 +77,8 @@ h1 {
     border-radius: 10px;
     font-size: 0.8rem;
     cursor: pointer;
-    transition: all 0.2s ease;
 }
 
-.reset-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-    color: #fff;
-}
-
-/* Grid & Cards */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -104,7 +95,6 @@ h1 {
     padding: 22px 16px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
@@ -112,41 +102,20 @@ h1 {
     gap: 10px;
 }
 
-.card .icon {
-    font-size: 1.8rem;
-    font-weight: bold;
-}
+.card .icon { font-size: 1.8rem; font-weight: bold; }
+.card .title { font-size: 1.05rem; font-weight: 600; }
 
-.card .title {
-    font-size: 1.05rem;
-    font-weight: 600;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-.card:active {
-    transform: scale(0.96);
-}
-
-/* Subject Specific Styling */
 .card.math { border-bottom: 3px solid var(--math-color); }
 .card.math .icon { color: var(--math-color); }
-.card.math:hover { box-shadow: 0 8px 25px var(--math-glow); }
 
 .card.physics { border-bottom: 3px solid var(--phy-color); }
 .card.physics .icon { color: var(--phy-color); }
-.card.physics:hover { box-shadow: 0 8px 25px var(--phy-glow); }
 
 .card.optics { border-bottom: 3px solid var(--optics-color); }
 .card.optics .icon { color: var(--optics-color); }
-.card.optics:hover { box-shadow: 0 8px 25px var(--optics-glow); }
 
 .card.chemistry { border-bottom: 3px solid var(--chem-color); }
 .card.chemistry .icon { color: var(--chem-color); }
-.card.chemistry:hover { box-shadow: 0 8px 25px var(--chem-glow); }
 
 .btn-back {
     align-self: flex-start;
@@ -156,66 +125,67 @@ h1 {
     border: none;
     color: var(--text-muted);
     font-size: 0.85rem;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     cursor: pointer;
     text-align: left;
     display: none;
     padding: 0 4px;
 }
 
-/* Chat Drawer - Expanded Width */
+/* Chat Drawer Layout Fixes */
 #chat-container {
     display: none;
     flex-direction: column;
     width: 100%;
     max-width: 800px;
-    height: 75vh;
+    height: 78vh;
     background: var(--card-bg);
     backdrop-filter: blur(16px);
     border-radius: 20px;
     border: 1px solid var(--card-border);
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-sizing: border-box;
 }
 
 #chat-box {
     flex: 1;
-    padding: 16px;
+    padding: 12px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
     scroll-behavior: smooth;
 }
 
 .msg-row {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
-    max-width: 95%;
+    gap: 8px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .msg-row.user {
-    align-self: flex-end;
-    flex-direction: row-reverse;
+    justify-content: flex-end;
 }
 
 .msg-row.bot {
-    align-self: flex-start;
+    justify-content: flex-start;
 }
 
 .avatar {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: #334155;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: bold;
     flex-shrink: 0;
+    margin-top: 4px;
 }
 
 .msg-row.user .avatar {
@@ -223,11 +193,30 @@ h1 {
 }
 
 .msg-bubble {
-    padding: 12px 16px;
-    border-radius: 16px;
-    font-size: 0.95rem;
+    padding: 12px 14px;
+    border-radius: 14px;
+    font-size: 0.92rem;
     line-height: 1.5;
     word-break: break-word;
+    max-width: calc(100% - 40px); /* Takes almost full available width */
+    box-sizing: border-box;
+}
+
+.msg-bubble p {
+    margin: 0 0 8px 0;
+}
+
+.msg-bubble p:last-child {
+    margin-bottom: 0;
+}
+
+.msg-bubble ul, .msg-bubble ol {
+    margin: 6px 0;
+    padding-left: 20px;
+}
+
+.msg-bubble li {
+    margin-bottom: 4px;
 }
 
 .msg-row.user .msg-bubble {
@@ -237,13 +226,13 @@ h1 {
 }
 
 .msg-row.bot .msg-bubble {
-    background: rgba(51, 65, 85, 0.8);
+    background: rgba(30, 41, 59, 0.95);
     color: var(--text);
     border-top-left-radius: 4px;
     border: 1px solid var(--card-border);
+    flex: 1; /* Forces bubble to fill horizontal space */
 }
 
-/* Typing Indicator Animation */
 .typing {
     display: flex;
     gap: 4px;
@@ -269,7 +258,7 @@ h1 {
 .input-row {
     display: flex;
     padding: 8px;
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(15, 23, 42, 0.9);
     border-top: 1px solid var(--card-border);
 }
 
@@ -291,10 +280,4 @@ button.send-btn {
     border-radius: 12px;
     font-weight: 600;
     cursor: pointer;
-    transition: opacity 0.2s;
 }
-
-button.send-btn:hover {
-    opacity: 0.9;
-        }
-    

@@ -5,12 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UACE Coach</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- KaTeX CSS & JS for LaTeX Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 </head>
 <body>
 
     <header>
-        <h1>UACE Coach</h1>
-        <div class="breadcrumb" id="breadcrumb">Select a Subject</div>
+        <div class="brand">
+            <h1>UACE Coach</h1>
+            <div class="breadcrumb" id="breadcrumb">Select Subject</div>
+        </div>
+        <button class="reset-btn" onclick="resetApp()">Home</button>
     </header>
 
     <button class="btn-back" id="back-btn" onclick="goBack()">← Back</button>
@@ -27,8 +35,7 @@
         </div>
     </div>
 
-    <!-- Added defer to ensure HTML elements exist before JS runs -->
     <script src="app.js" defer></script>
 </body>
-        </html>
-        
+    </html>
+    

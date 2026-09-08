@@ -43,6 +43,13 @@ const backBtn = document.getElementById("back-btn");
 const breadcrumb = document.getElementById("breadcrumb");
 const chatContainer = document.getElementById("chat-container");
 
+function formatContent(rawText) {
+    if (typeof marked !== 'undefined') {
+        return marked.parse(rawText);
+    }
+    return rawText;
+}
+
 function renderLaTeX(elementId) {
     if (window.renderMathInElement && document.getElementById(elementId)) {
         renderMathInElement(document.getElementById(elementId), {
@@ -122,10 +129,12 @@ function startChat(topic) {
 
     const chatBox = document.getElementById("chat-box");
     const welcomeId = "welcome-msg";
+    const welcomeText = `Hello! I am your UACE tutor for **${selectedTopic}**. Ask me any question or past-paper problem.`;
+
     chatBox.innerHTML = `
         <div class="msg-row bot" id="${welcomeId}">
             <div class="avatar">${curriculum[selectedSubject]?.icon || '🤖'}</div>
-            <div class="msg-bubble">Hello! I am your UACE tutor for <b>${selectedTopic}</b>. Ask me any question or past-paper problem.</div>
+            <div class="msg-bubble">${formatContent(welcomeText)}</div>
         </div>
     `;
     renderLaTeX(welcomeId);
@@ -153,7 +162,7 @@ async function sendMessage() {
     chatBox.innerHTML += `
         <div class="msg-row user" id="${userMsgId}">
             <div class="avatar">You</div>
-            <div class="msg-bubble">${text}</div>
+            <div class="msg-bubble">${formatContent(text)}</div>
         </div>
     `;
     input.value = "";
@@ -188,7 +197,7 @@ async function sendMessage() {
         chatBox.innerHTML += `
             <div class="msg-row bot" id="${botMsgId}">
                 <div class="avatar">${curriculum[selectedSubject]?.icon || '🤖'}</div>
-                <div class="msg-bubble">${data.reply}</div>
+                <div class="msg-bubble">${formatContent(data.reply)}</div>
             </div>
         `;
         
@@ -212,4 +221,3 @@ function handleKey(e) {
 document.addEventListener("DOMContentLoaded", () => {
     renderMainMenu();
 });
-            

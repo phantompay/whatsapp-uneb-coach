@@ -221,3 +221,4 @@ function handleKey(e) {
 document.addEventListener("DOMContentLoaded", () => {
     renderMainMenu();
 });
+                            
